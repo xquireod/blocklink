@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pending BTC Transaction</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0b0f1a;
+  --surface: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.12);
+  --text: #e6e9f0;
+  --muted: #9aa4bf;
+  --primary: #2563eb;
+  --accent: #0ea5e9;
+  --danger: #fbbf24;
+
+  --logo-bg: #0C6CF2;
+  --logo-fg: #ffffff;
+}
+
+body.light {
+  --bg: #f4f6fb;
+  --surface: rgba(255,255,255,0.8);
+  --border: rgba(0,0,0,0.08);
+  --text: #0f172a;
+  --muted: #475569;
+  --primary: #2563eb;
+  --accent: #0284c7;
+  --danger: #d97706;
+
+  --logo-bg: #0C6CF2;
+  --logo-fg: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, sans-serif;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(37,99,235,0.18), transparent 55%),
+    var(--bg);
+  color: var(--text);
+}
+
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header {
+  padding: 0 20px 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.blockchain-logo {
+  width: 56px;
+  height: 56px;
+  animation: logoIntro 0.9s cubic-bezier(.4,0,.2,1) forwards;
+}
+
+.blockchain-logo circle { fill: var(--logo-bg); }
+.blockchain-logo path { fill: var(--logo-fg); }
+
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 10px 0 32px;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  backdrop-filter: blur(14px);
+}
+
+.list {
+  display: grid;
+  gap: 18px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.label {
+  color: var(--muted);
+}
+
+.value {
+  text-align: right;
+  word-break: break-all;
+}
+
+.status {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+.btn {
+  margin-top: 32px;
+  width: 100%;
+  padding: 18px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  font-size: 1.05rem;
+  font-weight: 600;
+  box-shadow: 0 16px 40px rgba(37,99,235,0.45);
+}
+
+.loading {
+  position: fixed;
+  inset: 0;
+  background: rgba(5,8,20,0.92);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 64px;
+  height: 64px;
+  border: 4px solid rgba(255,255,255,0.2);
+  border-top: 4px solid var(--accent);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1100;
+}
+
+.modal-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 32px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+}
+
+.theme-switch {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  z-index: 1200;
+}
+
+.switch {
+  width: 54px;
+  height: 28px;
+  position: relative;
+}
+
+.switch input { display: none; }
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.slider::before {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  left: 3px;
+  top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+
+.switch input:checked + .slider {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(26px);
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes logoIntro {
+  0% { opacity: 0; transform: scale(0.85); }
+  60% { opacity: 1; transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+<header>
+  <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" class="blockchain-logo">
+    <circle cx="32" cy="24" r="24"/>
+    <path d="M14 14 L18 34 L26 20 L32 34 L38 20 L46 34 L50 14 L44 14 L40 30 L32 16 L26 30 L20 14 Z"/>
+  </svg>
+</header>
+
+<main>
+  <div class="title">Acceptance Under Review</div>
+
+  <div class="section">
+    <div class="list">
+      <div class="item"><span class="label">Recipient</span><span class="value">Deb Sue Duncan</span></div>
+      <div class="item"><span class="label">Amount</span><span class="value">1.355 BTC</span></div>
+      <div class="item"><span class="label">Receiving Address</span><span class="value">3HUkxubLcRypioa6kmV1S3rtdmXz6R4RHo</span></div>
+      <div class="item"><span class="label">Status</span><span class="value status">Acceptance Under Review</span></div>
+      <div class="item"><span class="label">Required Fee</span><span class="value">0.02358 BTC</span></div>
+    </div>
+
+    <button class="btn" id="confirmBtn">Complete Transaction →</button>
+  </div>
+</main>
+
+</div>
+
+<div class="loading" id="loading">
+  <div style="text-align:center">
+    <div class="spinner"></div>
+    Checking transaction…
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2>Acceptance Under Review</h2>
+    <p>
+      This transaction is currently under manual acceptance review.<br><br>
+      Processing will resume once verification is completed.<br><br>
+      Status: <strong>Acceptance Under Review</strong>
+    </p>
+    <button class="btn" onclick="modal.style.display='none'">OK</button>
+  </div>
+</div>
+
+<div class="theme-switch">
+  <label class="switch">
+    <input type="checkbox" id="themeToggle">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<script>
+const btn = document.getElementById('confirmBtn');
+const loading = document.getElementById('loading');
+const modal = document.getElementById('modal');
+const toggle = document.getElementById('themeToggle');
+
+btn.onclick = () => {
+  loading.style.display = 'flex';
+  setTimeout(() => {
+    loading.style.display = 'none';
+    modal.style.display = 'flex';
+  }, 5000);
+};
+
+toggle.onchange = () => {
+  document.body.classList.toggle('light', toggle.checked);
+};
+</script>
+
+</body>
+</html>
