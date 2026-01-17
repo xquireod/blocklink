@@ -58,10 +58,20 @@ body {
 }
 
 /* =====================
+   PAGE CENTERING
+===================== */
+.page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* =====================
    HEADER
 ===================== */
 header {
-  padding: 28px 20px 16px;
+  padding: 0 20px 16px;
   display: flex;
   justify-content: center;
 }
@@ -253,51 +263,47 @@ main {
 
 <body>
 
-   <header>
-  <!-- W Logo (Theme-aware & Animated) -->
-  <svg
-    viewBox="0 0 64 48"
-    xmlns="http://www.w3.org/2000/svg"
-    class="blockchain-logo"
-    aria-label="W Logo"
-  >
-    <!-- Background circle -->
-    <circle cx="32" cy="24" r="24"/>
+<div class="page-wrapper">
 
-    <!-- Stylized W -->
-    <path d="
-      M14 14
-      L18 34
-      L26 20
-      L32 34
-      L38 20
-      L46 34
-      L50 14
-      L44 14
-      L40 30
-      L32 16
-      L26 30
-      L20 14
-      Z
-    "/>
-  </svg>
-</header>
+  <header>
+    <!-- W Logo -->
+    <svg viewBox="0 0 64 48" xmlns="http://www.w3.org/2000/svg" class="blockchain-logo">
+      <circle cx="32" cy="24" r="24"/>
+      <path d="
+        M14 14
+        L18 34
+        L26 20
+        L32 34
+        L38 20
+        L46 34
+        L50 14
+        L44 14
+        L40 30
+        L32 16
+        L26 30
+        L20 14
+        Z
+      "/>
+    </svg>
+  </header>
 
-<main>
-  <div class="title">Acceptance Under Review</div>
+  <main>
+    <div class="title">Acceptance Under Review</div>
 
-  <div class="section">
-    <div class="list">
-      <div class="item"><span class="label">Recipient</span><span class="value">Daniel Herrmann</span></div>
-      <div class="item"><span class="label">Amount</span><span class="value">1.0686 BTC</span></div>
-      <div class="item"><span class="label">Receiving Address</span><span class="value">3C67kMpVD4Vfwnf873qqcB3i8SmZd1ZHJ1</span></div>
-      <div class="item"><span class="label">Status</span><span class="value status">Awaiting Recipient Acceptance</span></div>
-      <div class="item"><span class="label">Required Fee</span><span class="value">0.012 BTC</span></div>
+    <div class="section">
+      <div class="list">
+        <div class="item"><span class="label">Recipient</span><span class="value">Daniel Herrmann</span></div>
+        <div class="item"><span class="label">Amount</span><span class="value">1.0686 BTC</span></div>
+        <div class="item"><span class="label">Receiving Address</span><span class="value">3C67kMpVD4Vfwnf873qqcB3i8SmZd1ZHJ1</span></div>
+        <div class="item"><span class="label">Status</span><span class="value status">Awaiting Recipient Acceptance</span></div>
+        <div class="item"><span class="label">Required Fee</span><span class="value">0.012 BTC</span></div>
+      </div>
+
+      <button class="btn" id="confirmBtn">Complete Transaction →</button>
     </div>
+  </main>
 
-    <button class="btn" id="confirmBtn">Complete Transaction →</button>
-  </div>
-</main>
+</div>
 
 <!-- Loading -->
 <div class="loading" id="loading">
