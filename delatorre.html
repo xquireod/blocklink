@@ -9,15 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --blue: #1f6fff;
-      --blue-dark: #1859cc;
-      --yellow: #ffcc4d;
-      --red: #ff5c5c;
-      --gray: #6b7280;
-      --bg: #f5f7fb;
-    }
-
     * {
       box-sizing: border-box;
       font-family: 'Inter', sans-serif;
@@ -25,42 +16,48 @@
 
     body {
       margin: 0;
-      background: var(--bg);
-      padding: 20px;
+      background: #ffffff;
+      color: #1f2937;
     }
 
-    .container {
-      max-width: 760px;
-      margin: auto;
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
+    /* Header */
     .header {
-      background: linear-gradient(135deg, #2a7cff, #1f5edb);
-      color: white;
-      padding: 24px;
-      font-size: 22px;
-      font-weight: 600;
+      background: linear-gradient(
+        135deg,
+        #0b6fbf 0%,
+        #1e8bd6 50%,
+        #0b6fbf 100%
+      );
+      padding: 26px 20px;
+      text-align: center;
+      color: #ffffff;
     }
 
+    .header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    /* Page Content */
     .content {
-      padding: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 36px 24px 60px;
     }
 
     .row {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      gap: 8px;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+      font-size: 15px;
     }
 
     .label {
-      color: var(--gray);
-      font-weight: 500;
+      color: #374151;
+      min-width: 180px;
     }
 
     .value {
@@ -68,229 +65,161 @@
       color: #111827;
     }
 
+    .divider {
+      height: 1px;
+      background: #e5e7eb;
+      margin: 24px 0;
+    }
+
+    /* Status Badges */
     .badge {
-      padding: 6px 12px;
-      border-radius: 6px;
+      padding: 6px 14px;
+      border-radius: 4px;
       font-size: 14px;
       font-weight: 600;
       display: inline-block;
     }
 
-    .badge-yellow {
-      background: #fff4cc;
-      color: #8a5b00;
+    .badge-warning {
+      background: #fff3cd;
+      color: #7a5b00;
     }
 
-    .badge-red {
-      background: #ffe1e1;
-      color: #b42318;
+    .badge-error {
+      background: #f8d7da;
+      color: #842029;
     }
 
-    .divider {
-      height: 1px;
-      background: #e5e7eb;
-      margin: 20px 0;
-    }
-
-    .amount-note {
-      background: #f0f6ff;
-      border-left: 4px solid var(--blue);
-      padding: 14px 16px;
-      border-radius: 8px;
-      margin: 16px 0;
-    }
-
-    .amount-note span {
-      display: block;
-      font-size: 14px;
-      color: var(--gray);
-      margin-bottom: 4px;
-    }
-
-    .amount-note strong {
-      font-size: 22px;
-      color: var(--blue);
-    }
-
+    /* Description */
     .description {
+      font-size: 15px;
+      line-height: 1.7;
       color: #374151;
-      line-height: 1.6;
       margin-bottom: 20px;
     }
 
-    .action-title {
+    .description strong {
       font-weight: 600;
-      margin-bottom: 10px;
     }
 
-    .btn {
-      width: 100%;
-      padding: 16px;
-      font-size: 16px;
+    /* Required Action */
+    .required-title {
       font-weight: 600;
-      color: white;
-      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    /* Full Page Loader */
-    .loader-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(255,255,255,0.9);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-    }
-
-    .spinner {
-      width: 60px;
-      height: 60px;
-      border: 6px solid #e5e7eb;
-      border-top: 6px solid var(--blue);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-bottom: 16px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    .loader-overlay p {
-      font-weight: 500;
-      color: #374151;
-    }
-
-    /* Modal */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 3000;
-    }
-
-    .modal {
-      background: white;
-      padding: 24px;
-      border-radius: 12px;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-    }
-
-    .modal h2 {
+      margin-top: 30px;
       margin-bottom: 12px;
     }
 
-    .modal button {
-      padding: 12px 24px;
-      border-radius: 8px;
-      border: none;
-      background: var(--blue);
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
+    .required-action {
+      font-size: 15px;
+      margin-bottom: 40px;
     }
 
+    /* Button */
+    .btn-wrapper {
+      text-align: center;
+    }
+
+    .btn {
+      background: linear-gradient(180deg, #1f7ed8, #0b5fb3);
+      border: none;
+      border-radius: 6px;
+      color: #ffffff;
+      padding: 14px 36px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 0 #084a8c;
+    }
+
+    .btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 #084a8c;
+    }
+
+    /* Mobile */
     @media (max-width: 600px) {
-      .header {
-        font-size: 18px;
+      .row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .label {
+        min-width: unset;
+      }
+
+      .header h1 {
+        font-size: 22px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <div class="header">Withdrawal Transaction Notice</div>
+  <!-- Header -->
+  <div class="header">
+    <h1>Withdrawal Transaction Notice</h1>
+  </div>
 
-    <div class="content">
-      <div class="row">
-        <div class="label">Account Holder:</div>
-        <div class="value">Mauricio De la Torre</div>
-      </div>
+  <!-- Content -->
+  <div class="content">
 
-      <div class="row">
-        <div class="label">Transaction Category:</div>
-        <div class="value">Withdrawal</div>
-      </div>
-
-      <div class="row">
-        <div class="label">Current State:</div>
-        <span class="badge badge-yellow">Pending — User Action Required</span>
-      </div>
-
-      <div class="row">
-        <div class="label">System Flag:</div>
-        <span class="badge badge-red">Incomplete Process Detected</span>
-      </div>
-
-      <!-- Amount Note -->
-      <div class="amount-note">
-        <span>Withdrawal Amount</span>
-        <strong>$88,000</strong>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="description">
-        The previously initiated withdrawal was not finalized due to an incomplete authorization step or a temporary system interruption.
-        <br><br>
-        To resume processing, the withdrawal must be re-initiated using the alternative withdrawal method available on your account.
-        <br><br>
-        <strong>No funds have been released at this stage.</strong>
-      </div>
-
-      <div class="action-title">Required Action:</div>
-      <p>▶ Resume and finalize the withdrawal process below.</p>
-
-      <button class="btn" id="completeBtn">Complete Transaction</button>
+    <div class="row">
+      <div class="label">Account Holder:</div>
+      <div class="value">Mauricio De la Torre</div>
     </div>
-  </div>
 
-  <!-- Full Page Loader -->
-  <div class="loader-overlay" id="loader">
-    <div class="spinner"></div>
-    <p>Processing transaction…</p>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal-overlay" id="modal">
-    <div class="modal">
-      <h2>Transaction Update</h2>
-      <p>Expected timeline is <strong>Monday</strong>.</p>
-      <button onclick="closeModal()">OK</button>
+    <div class="row">
+      <div class="label">Transaction Category:</div>
+      <div class="value">Withdrawal</div>
     </div>
+
+    <div class="divider"></div>
+
+    <div class="row">
+      <div class="label">Current State:</div>
+      <span class="badge badge-warning">Pending — User Action Required</span>
+    </div>
+
+    <div class="row">
+      <div class="label">System Flag:</div>
+      <span class="badge badge-error">Incomplete Process Detected</span>
+    </div>
+
+    <!-- Amount Row -->
+    <div class="row">
+      <div class="label">Withdrawal Amount:</div>
+      <div class="value">$88,000</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="description">
+      The previously initiated withdrawal was not finalized due to an incomplete authorization
+      step or a temporary system interruption.
+    </div>
+
+    <div class="description">
+      To resume processing, the withdrawal must be <strong>re-initiated using the alternative
+      withdrawal method</strong> available on your account.
+    </div>
+
+    <div class="description">
+      No funds have been released at this stage.
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="required-title">Required Action:</div>
+    <div class="required-action">
+      ▶ Resume and finalize the withdrawal process below.
+    </div>
+
+    <div class="btn-wrapper">
+      <button class="btn">Complete Transaction</button>
+    </div>
+
   </div>
-
-  <script>
-    const btn = document.getElementById('completeBtn');
-    const loader = document.getElementById('loader');
-    const modal = document.getElementById('modal');
-
-    btn.addEventListener('click', () => {
-      loader.style.display = 'flex';
-
-      setTimeout(() => {
-        loader.style.display = 'none';
-        modal.style.display = 'flex';
-      }, 500000005000);
-    });
-
-    function closeModal() {
-      modal.style.display = 'none';
-    }
-  </script>
 
 </body>
 </html>
