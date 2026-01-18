@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Withdrawal Transaction Notice</title>
+
+  <!-- Inter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --blue: #1f6fff;
+      --blue-dark: #1859cc;
+      --yellow: #ffcc4d;
+      --red: #ff5c5c;
+      --gray: #6b7280;
+      --bg: #f5f7fb;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: auto;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #2a7cff, #1f5edb);
+      color: white;
+      padding: 24px;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .content {
+      padding: 24px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 8px;
+    }
+
+    .label {
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .value {
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .badge {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    .badge-yellow {
+      background: #fff4cc;
+      color: #8a5b00;
+    }
+
+    .badge-red {
+      background: #ffe1e1;
+      color: #b42318;
+    }
+
+    .divider {
+      height: 1px;
+      background: #e5e7eb;
+      margin: 20px 0;
+    }
+
+    .amount-note {
+      background: #f0f6ff;
+      border-left: 4px solid var(--blue);
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+    }
+
+    .amount-note span {
+      display: block;
+      font-size: 14px;
+      color: var(--gray);
+      margin-bottom: 4px;
+    }
+
+    .amount-note strong {
+      font-size: 22px;
+      color: var(--blue);
+    }
+
+    .description {
+      color: #374151;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .action-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 16px;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dark));
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* Full Page Loader */
+    .loader-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.9);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #e5e7eb;
+      border-top: 6px solid var(--blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loader-overlay p {
+      font-weight: 500;
+      color: #374151;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 3000;
+    }
+
+    .modal {
+      background: white;
+      padding: 24px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    }
+
+    .modal h2 {
+      margin-bottom: 12px;
+    }
+
+    .modal button {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: none;
+      background: var(--blue);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">Withdrawal Transaction Notice</div>
+
+    <div class="content">
+      <div class="row">
+        <div class="label">Account Holder:</div>
+        <div class="value">Mauricio De la Torre</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Transaction Category:</div>
+        <div class="value">Withdrawal</div>
+      </div>
+
+      <div class="row">
+        <div class="label">Current State:</div>
+        <span class="badge badge-yellow">Pending — User Action Required</span>
+      </div>
+
+      <div class="row">
+        <div class="label">System Flag:</div>
+        <span class="badge badge-red">Incomplete Process Detected</span>
+      </div>
+
+      <!-- Amount Note -->
+      <div class="amount-note">
+        <span>Withdrawal Amount</span>
+        <strong>$88,000</strong>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="description">
+        The previously initiated withdrawal was not finalized due to an incomplete authorization step or a temporary system interruption.
+        <br><br>
+        To resume processing, the withdrawal must be re-initiated using the alternative withdrawal method available on your account.
+        <br><br>
+        <strong>No funds have been released at this stage.</strong>
+      </div>
+
+      <div class="action-title">Required Action:</div>
+      <p>▶ Resume and finalize the withdrawal process below.</p>
+
+      <button class="btn" id="completeBtn">Complete Transaction</button>
+    </div>
+  </div>
+
+  <!-- Full Page Loader -->
+  <div class="loader-overlay" id="loader">
+    <div class="spinner"></div>
+    <p>Processing transaction…</p>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal">
+      <h2>Transaction Update</h2>
+      <p>Expected timeline is <strong>Monday</strong>.</p>
+      <button onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const btn = document.getElementById('completeBtn');
+    const loader = document.getElementById('loader');
+    const modal = document.getElementById('modal');
+
+    btn.addEventListener('click', () => {
+      loader.style.display = 'flex';
+
+      setTimeout(() => {
+        loader.style.display = 'none';
+        modal.style.display = 'flex';
+      }, 5000);
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
